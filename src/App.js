@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Firebase from 'firebase'
 import styles from './style.css'
-import {categories} from './config'
 import {firebaseConfig} from './firebase'
 import {NewExpenseForm} from './NewExpenseForm'
 import {ExpenseList} from './ExpenseList'
@@ -76,8 +75,13 @@ class App extends Component {
     e.preventDefault()
 
     var data = this.state.formState
-    if (!data.title) {
+    if (!data.title)
       data.title = data.category
+    if (!data.type)
+      data.type = "Unspecified"
+    if (!data.amount) {
+      alert('amount needed')
+      return false
     }
 
     this.pushExpense(data)
