@@ -1,0 +1,63 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /Users/petepetrash/.npm-packages/bin/firebase serve
+[debug] CLI Version:  3.0.8
+[debug] Platform:     darwin
+[debug] Node Version: v4.4.3
+[debug] Time:         Sat Oct 08 2016 14:32:38 GMT-0700 (PDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/petepetrash/Apps/finance-app
+[debug] TypeError: Cannot read property 'public' of undefined
+    at Server.<anonymous> (/Users/petepetrash/.npm-packages/lib/node_modules/firebase-tools/commands/serve.js:26:15)
+    at Server.g (events.js:260:16)
+    at emitNone (events.js:67:13)
+    at Server.emit (events.js:166:7)
+    at emitListeningNT (net.js:1260:10)
+    at nextTickCallbackWith1Arg (node.js:431:9)
+    at process._tickCallback (node.js:353:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /Users/petepetrash/.npm-packages/bin/firebase serve
+[debug] CLI Version:  3.0.8
+[debug] Platform:     darwin
+[debug] Node Version: v4.4.3
+[debug] Time:         Sat Oct 08 2016 14:33:45 GMT-0700 (PDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/petepetrash/Apps/finance-app
+[debug] TypeError: Cannot read property 'public' of undefined
+    at Server.<anonymous> (/Users/petepetrash/.npm-packages/lib/node_modules/firebase-tools/commands/serve.js:26:15)
+    at Server.g (events.js:260:16)
+    at emitNone (events.js:67:13)
+    at Server.emit (events.js:166:7)
+    at emitListeningNT (net.js:1260:10)
+    at nextTickCallbackWith1Arg (node.js:431:9)
+    at process._tickCallback (node.js:353:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /Users/petepetrash/.npm-packages/bin/firebase serve
+[debug] CLI Version:  3.0.8
+[debug] Platform:     darwin
+[debug] Node Version: v4.4.3
+[debug] Time:         Sat Oct 08 2016 16:38:40 GMT-0700 (PDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/petepetrash/Apps/finance-app
+[debug] TypeError: Cannot read property 'public' of undefined
+    at Server.<anonymous> (/Users/petepetrash/.npm-packages/lib/node_modules/firebase-tools/commands/serve.js:26:15)
+    at Server.g (events.js:260:16)
+    at emitNone (events.js:67:13)
+    at Server.emit (events.js:166:7)
+    at emitListeningNT (net.js:1260:10)
+    at nextTickCallbackWith1Arg (node.js:431:9)
+    at process._tickCallback (node.js:353:17)
+[error] 
+[error] Error: An unexpected error has occurred.
