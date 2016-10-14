@@ -2,27 +2,32 @@ import React, { Component } from 'react'
 import Firebase from 'firebase'
 import styles from './style.css'
 import {firebaseConfig} from './firebase'
-import {NewExpenseForm} from './NewExpenseForm'
+import {AddExpenseForm} from './AddExpenseForm'
 import {ExpenseList} from './ExpenseList'
 
 // eslint-disable-next-line
 const app = Firebase.initializeApp(firebaseConfig)
 const database = Firebase.database()
+
 const expensesData = database.ref('data/expenses').orderByKey()
+
+const initialFormState = {
+  title: '',
+  date: '',
+  amount: '',
+  category: '',
+  type: ''
+}
+
+const initialExpensesState = []
 
 class App extends Component {
   constructor() {
     super()
 
     this.state = {
-      formState: {
-        title: '',
-        date: '',
-        amount: '',
-        category: '',
-        type: ''
-      },
-      expenses: []
+      formState: initialFormState,
+      expenses: initialExpensesState
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -35,11 +40,12 @@ class App extends Component {
     this.connectToFirebase()
 
     expensesData.on('value', snapshot => {
-      var newExpenses = []
+      const expenses = []
+
       Object.keys(snapshot.val()).forEach(key => {
-        newExpenses.push(snapshot.val()[key])
+        expenses.push(snapshot.val()[key])
       })
-      this.setState({expenses: newExpenses})
+      this.setState({expenses: expenses})
     })
 
   }
@@ -57,24 +63,15 @@ class App extends Component {
   }
 
   handleChange(e) {
-    var oldState = this.state.formState
-
-    var newFormState = {
-        title: oldState.title,
-        date: oldState.date,
-        amount: oldState.amount,
-        category: oldState.category,
-        type: oldState.type
-    }
-
+    const newFormState = {...this.state.formState}
     newFormState[e.target.name] = e.target.value
     this.setState({formState: newFormState})
   }
 
   handleFormSubmit(e) {
     e.preventDefault()
+    const data = {...this.state.formState}
 
-    var data = this.state.formState
     if (!data.title)
       data.title = data.category
     if (!data.type)
@@ -83,7 +80,6 @@ class App extends Component {
       alert('amount needed')
       return false
     }
-
     this.pushExpense(data)
   }
 
@@ -93,14 +89,7 @@ class App extends Component {
   }
 
   clearForm() {
-    var emptyFormState = {
-        title: '',
-        date: '',
-        amount: '',
-        category: '',
-        type: ''
-    }
-    this.setState({formState: emptyFormState})
+    this.setState({formState: initialFormState})
   }
 
   render() {
@@ -108,7 +97,7 @@ class App extends Component {
 
     return (
       <div className="App" style={styles}>
-        <NewExpenseForm {...this.state}
+        <AddExpenseForm {...this.state.formState}
                         handleChange={this.handleChange}
                         handleFormSubmit={this.handleFormSubmit} />
         <ExpenseList {...expenses} />
