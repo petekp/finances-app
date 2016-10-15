@@ -42,12 +42,13 @@ class App extends Component {
     // eslint-disable-next-line
     app = Firebase.initializeApp(firebaseConfig)
     database = Firebase.database()
-    expensesData = database.ref('/')
+    expensesData = database.ref('/data/expenses')
 
     this.connectToFirebase()
 
     expensesData.on('value', snapshot => {
       const expenses = []
+      console.log(snapshot.val(), 'on value')
 
       Object.keys(snapshot.val()).forEach(key => {
         let newObj = snapshot.val()[key]
@@ -100,14 +101,14 @@ class App extends Component {
   }
 
   handleItemClick({id}) {
-    this.removeExpense('expenses', id)
+    this.removeExpense(id)
   }
 
-  removeExpense(type, id) {
-    const expenseRef = database.ref(`/${id}`)
+  removeExpense(id) {
+    const expenseRef = expensesData.child(id)
     expenseRef.remove((error) => {
       console.log(error)
-      console.log(`data/${type}/${id} removed successfully.`)
+      console.log(`data/expenses/${id} removed successfully.`)
     })
   }
 
