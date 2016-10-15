@@ -4,12 +4,12 @@ import styles from './style.css'
 import {firebaseConfig} from './firebase'
 import {AddExpenseForm} from './AddExpenseForm'
 import {ExpenseList} from './ExpenseList'
+import {ExpenseListItem} from './ExpenseListItem'
 
 // eslint-disable-next-line
-const app = Firebase.initializeApp(firebaseConfig)
-const database = Firebase.database()
-
-const expensesData = database.ref('data/expenses').orderByKey()
+var app,
+    database,
+    expensesData
 
 const initialFormState = {
   title: '',
@@ -33,18 +33,28 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.pushExpense = this.pushExpense.bind(this)
+    this.removeExpense = this.removeExpense.bind(this)
+    this.handleItemClick = this.handleItemClick.bind(this)
     this.clearForm = this.clearForm.bind(this)
   }
 
   componentDidMount() {
+    // eslint-disable-next-line
+    app = Firebase.initializeApp(firebaseConfig)
+    database = Firebase.database()
+    expensesData = database.ref('/')
+
     this.connectToFirebase()
 
     expensesData.on('value', snapshot => {
       const expenses = []
 
       Object.keys(snapshot.val()).forEach(key => {
-        expenses.push(snapshot.val()[key])
+        let newObj = snapshot.val()[key]
+        newObj.id = key
+        expenses.push(newObj)
       })
+
       this.setState({expenses: expenses})
     })
 
@@ -84,8 +94,21 @@ class App extends Component {
   }
 
   pushExpense(data) {
-    database.ref('data/expenses').push(data)
+    const newExpense = expensesData.push()
+    newExpense.set(data)
     this.clearForm()
+  }
+
+  handleItemClick({id}) {
+    this.removeExpense('expenses', id)
+  }
+
+  removeExpense(type, id) {
+    const expenseRef = database.ref(`/${id}`)
+    expenseRef.remove((error) => {
+      console.log(error)
+      console.log(`data/${type}/${id} removed successfully.`)
+    })
   }
 
   clearForm() {
@@ -100,7 +123,15 @@ class App extends Component {
         <AddExpenseForm {...this.state.formState}
                         handleChange={this.handleChange}
                         handleFormSubmit={this.handleFormSubmit} />
-        <ExpenseList {...expenses} />
+
+        <ExpenseList>
+          {Object.keys(expenses).map(obj => {
+            const data = expenses[obj]
+            return (<ExpenseListItem {...data}
+                                     handleItemClick={this.handleItemClick.bind(this, data)}
+                                     key={data.id} />)
+          })}
+        </ExpenseList>
       </div>
     )
   }

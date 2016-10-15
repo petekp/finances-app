@@ -26,13 +26,15 @@ export const AddExpenseForm = ({...formState, handleFormSubmit, handleChange}) =
         <input type="date"
                name="date"
                value={formState.date}
-               onChange={handleChange} />
+               onChange={handleChange}
+               autoComplete="off" />
       </InputGroup>
 
       <InputGroup label="Amount">
         <input type="text"
                name="amount"
                value={formState.amount}
+               autoComplete="off"
                onChange={handleChange} />
       </InputGroup>
 
