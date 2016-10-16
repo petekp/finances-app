@@ -47,16 +47,28 @@ class App extends Component {
     this.connectToFirebase()
 
     expensesData.on('value', snapshot => {
+
+      if(snapshot.val() == null) {
+        return
+      }
+
       const expenses = []
-      console.log(snapshot.val(), 'on value')
 
       Object.keys(snapshot.val()).forEach(key => {
-        let newObj = snapshot.val()[key]
-        newObj.id = key
-        expenses.push(newObj)
+        const expense = snapshot.val()[key]
+        expense.id = key
+        expenses.push(expense)
       })
 
       this.setState({expenses: expenses})
+    })
+
+    expensesData.on('child_removed', snapshot => {
+      if(snapshot == null) {
+        return
+      }
+      console.log(snapshot.val())
+      // console.log(`${snapshot.val().id} was removed.`)
     })
 
   }
@@ -81,22 +93,25 @@ class App extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault()
-    const data = {...this.state.formState}
 
-    if (!data.title)
-      data.title = data.category
-    if (!data.type)
-      data.type = "Unspecified"
-    if (!data.amount) {
+    const formInputValues = {...this.state.formState}
+
+    if (!formInputValues.title)
+      formInputValues.title = formInputValues.category
+    if (!formInputValues.type)
+      formInputValues.type = "Unspecified"
+    if (!formInputValues.amount) {
       alert('amount needed')
       return false
     }
-    this.pushExpense(data)
+    this.pushExpense(formInputValues)
   }
 
-  pushExpense(data) {
-    const newExpense = expensesData.push()
-    newExpense.set(data)
+  pushExpense(formInputValues) {
+    expensesData
+      .child(expensesData.push().key)
+      .set(formInputValues)
+
     this.clearForm()
   }
 
@@ -106,11 +121,23 @@ class App extends Component {
 
   removeExpense(id) {
     const expenseRef = expensesData.child(id)
+
     expenseRef.remove((error) => {
-      console.log(error)
-      console.log(`data/expenses/${id} removed successfully.`)
+      if(error)
+        console.log(error)
     })
   }
+
+  renderExpenseListItems = (expenses) => (
+    Object.keys(expenses).map(obj => {
+      const data = expenses[obj]
+      return (
+        <ExpenseListItem {...data}
+                         key={data.id}
+                         handleItemClick={this.handleItemClick.bind(this, data)} />
+      )
+    })
+  )
 
   clearForm() {
     this.setState({formState: initialFormState})
@@ -126,12 +153,7 @@ class App extends Component {
                         handleFormSubmit={this.handleFormSubmit} />
 
         <ExpenseList>
-          {Object.keys(expenses).map(obj => {
-            const data = expenses[obj]
-            return (<ExpenseListItem {...data}
-                                     handleItemClick={this.handleItemClick.bind(this, data)}
-                                     key={data.id} />)
-          })}
+          {this.renderExpenseListItems(expenses)}
         </ExpenseList>
       </div>
     )
