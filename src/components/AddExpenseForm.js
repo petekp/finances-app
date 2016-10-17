@@ -5,12 +5,14 @@ import {InputGroup} from './InputGroup'
 export const AddExpenseForm = ({...formState, handleFormSubmit, handleChange}) =>
   <form onSubmit={handleFormSubmit}>
     <fieldset>
+      {/*
       <InputGroup label="Title">
         <input type="text"
                name="title"
                value={formState.title}
                onChange={handleChange} />
       </InputGroup>
+      */}
 
       <InputGroup label="Category">
         <select name="category"

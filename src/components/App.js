@@ -48,7 +48,7 @@ class App extends Component {
 
     expensesData.on('value', snapshot => {
 
-      if(snapshot.val() == null) {
+      if(!snapshot.val()) {
         return
       }
 
@@ -63,12 +63,18 @@ class App extends Component {
       this.setState({expenses: expenses})
     })
 
+    expensesData.on('child_added', snapshot => {
+      if(!snapshot) {
+        return
+      }
+      console.log(`${snapshot.key} was added.`)
+    })
+
     expensesData.on('child_removed', snapshot => {
       if(snapshot == null) {
         return
       }
-      console.log(snapshot.val())
-      // console.log(`${snapshot.val().id} was removed.`)
+      console.log(`${snapshot.key} was removed.`)
     })
 
   }
