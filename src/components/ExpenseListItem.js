@@ -1,7 +1,7 @@
 import React from 'react'
 
 const convertToUSD = (number) => {
-  return '$' + parseInt(number, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+  return '$' + parseFloat(number, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
 }
 
 
