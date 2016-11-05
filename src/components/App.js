@@ -71,7 +71,7 @@ class App extends Component {
     })
 
     expensesData.on('child_removed', snapshot => {
-      if(snapshot == null) {
+      if(snapshot === null) {
         return
       }
       console.log(`${snapshot.key} was removed.`)
@@ -104,6 +104,8 @@ class App extends Component {
 
     if (!formInputValues.title)
       formInputValues.title = formInputValues.category
+    if (!formInputValues.category || formInputValues.category === "--")
+      formInputValues.category = "Uncategorized"
     if (!formInputValues.type)
       formInputValues.type = "Unspecified"
     if (!formInputValues.amount) {

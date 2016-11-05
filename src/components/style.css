@@ -82,7 +82,7 @@ select {
   padding: 0.5em 0.3em;
   appearance: none;
   border: 1px solid #ccc;
-  border-radius: 0.3rem;
+  border-radius: 0.3em;
 }
 
 input[type=radio] {
@@ -127,6 +127,7 @@ form > button {
   position: relative;
   display: flex;
   flex: 0 1 auto;
+  min-height: 2em;
   padding: 1em 2em;
   flex-direction: row;
   text-align: left;
@@ -142,11 +143,10 @@ form > button {
 
 .expense-list-item > .category {
   font-weight: 600;
-  flex: 0 1 10em;
+  flex: 0 1 20%;
 }
 .expense-list-item > .amount {
-  flex: 0 1 2em;
-  font-family: monospace;
+  flex: 0 1 7em;
   text-align: right;
   margin-right: auto;
 }
@@ -183,7 +183,7 @@ form > button {
 }
 
 .expense-list-item:hover {
-  background: rgba(0,0,0,0.03);
+  background: lime;
 }
 .expense-list-item:active {
   background: rgba(0,0,0,0.05);
@@ -191,6 +191,7 @@ form > button {
 
 .expense-list-item:hover .controls {
   display: flex;
+  background: rgba(255,255,255,0.5);
 }
 
 .controls {
@@ -201,7 +202,7 @@ form > button {
   bottom: 0;
   right: 0;
   flex: 1 1 auto;
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-start;
@@ -210,9 +211,9 @@ form > button {
 
 .controls > * {
   display: flex;
-  flex: 0 1 2rem;
-  height: 2rem;
+  flex: 0 1 2em;
   margin: 5px 5px 5px 0;
+  padding: 1em;
   align-items: center;
   justify-content: center;
   color: #fff;

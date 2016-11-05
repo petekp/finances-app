@@ -1,8 +1,5 @@
 import React from 'react'
-
-const convertToUSD = (number) => {
-  return '$' + parseFloat(number, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
-}
+import {convertToUSD} from '../helpers'
 
 
 export const ExpenseListItem = ({category, title, date, amount, type, handleItemClick}) =>
