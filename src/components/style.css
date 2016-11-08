@@ -183,15 +183,14 @@ form > button {
 }
 
 .expense-list-item:hover {
-  background: lime;
+  background: hsla(115, 100%, 65%, 0.5);
 }
 .expense-list-item:active {
-  background: rgba(0,0,0,0.05);
+  background: hsla(115, 100%, 66%, 0.34);
 }
 
 .expense-list-item:hover .controls {
   display: flex;
-  background: rgba(255,255,255,0.5);
 }
 
 .controls {
@@ -218,7 +217,8 @@ form > button {
   justify-content: center;
   color: #fff;
   cursor: pointer;
-  opacity: 0.7;
+  transform: scale(1);
+  transition: transform 0.2s ease;
 }
 
 .remove {
@@ -229,5 +229,5 @@ form > button {
 }
 
 .controls > *:hover {
-  opacity: 1;
+  transform: scale(1.1);
 }

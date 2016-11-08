@@ -3,6 +3,7 @@ import Firebase from 'firebase'
 import styles from './style.css'
 import {firebaseConfig} from './firebase'
 import {AddExpenseForm} from './AddExpenseForm'
+import {ExpenseTotal} from './ExpenseTotal'
 import {ExpenseList} from './ExpenseList'
 import {ExpenseListItem} from './ExpenseListItem'
 
@@ -159,7 +160,7 @@ class App extends Component {
         <AddExpenseForm {...this.state.formState}
                         handleChange={this.handleChange}
                         handleFormSubmit={this.handleFormSubmit} />
-
+                      <ExpenseTotal expenses={expenses} />
         <ExpenseList>
           {this.renderExpenseListItems(expenses)}
         </ExpenseList>
