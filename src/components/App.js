@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Firebase from 'firebase'
 import styles from './style.css'
+import styled from 'styled-components'
 import {firebaseConfig} from './firebase'
 import {AddExpenseForm} from './AddExpenseForm'
 import {ExpenseTotal} from './ExpenseTotal'
@@ -11,6 +12,12 @@ import {ExpenseListItem} from './ExpenseListItem'
 var app,
     database,
     expensesData
+
+const ColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+`
 
 const initialFormState = {
   title: '',
@@ -160,10 +167,17 @@ class App extends Component {
         <AddExpenseForm {...this.state.formState}
                         handleChange={this.handleChange}
                         handleFormSubmit={this.handleFormSubmit} />
-                      <ExpenseTotal expenses={expenses} />
-        <ExpenseList>
-          {this.renderExpenseListItems(expenses)}
-        </ExpenseList>
+
+                      <ColumnWrapper>
+          <ExpenseTotal expenses={expenses} />
+            <ExpenseList>
+              {this.renderExpenseListItems(expenses)}
+            </ExpenseList>
+
+        </ColumnWrapper>
+
+
+
       </div>
     )
   }
